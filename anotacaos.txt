@@ -1,0 +1,19 @@
+npx @nestjs/cli new nomeDoProjeto - iniciar um novo projeto
+main.ts - trocar a porta
+nest start - startar 
+npm run start:dev - vai inicializar em modo de desenvolvimento e ficará observando os arquivos.
+npm install class-validator class-transformer - comando para instalar as bibliotecas que ajudam na validação dos dados
+npm install @nestjs/mapped-types - instalar para trabalhar com o patche 
+npm install -D prisma - instalar o prisma - ORM
+npx prisma init - iniciar o prisma no projeto
+
+-------------------------
+Para fazer metodos crie um arquivo do tipo controller e no decorator do controller coloque a rota
+Obs: Lembre de chamar seu controller recem criado no app.module
+Para fazer metodos de guardar dados crie um arquivo repository e lá defina a logica de armazenamento, chame dentro do controller para salvar os dados em post
+
+module responsavel pela algumas chamadas, como orm do banco de dados e "aprensentar" o controller e os services.
+No controller é o responsavel pelo o crud e rotas, ele faz a chamada no service
+No service é onde vai ter toda a logica.
+
+cors --- implementação de segurança.
