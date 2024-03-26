@@ -7,6 +7,7 @@ npm install @nestjs/mapped-types - instalar para trabalhar com o patche
 npm install -D prisma - instalar o prisma - ORM
 npx prisma init - iniciar o prisma no projeto
 
+
 -------------------------
 Para fazer metodos crie um arquivo do tipo controller e no decorator do controller coloque a rota
 Obs: Lembre de chamar seu controller recem criado no app.module

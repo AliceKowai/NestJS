@@ -1,0 +1,105 @@
+1 - instalação de component/framework e criando o projeto
+    comando - npm install -g @nestjs/cli
+2 - Criar o ambiente do projeto
+    comando - npx @nestjs/cli new nomeDoProjeto
+3 - Editar packege.json alterando os script linha 12 
+    "dev": "nest start --watch",
+4 - Validar serviço da aplicação
+    comando: npm run dev
+    em seguida use o insomnia para validar os http request
+5 - Criar a pasta do app que será implementado
+    Ex: pasta User
+6 - Dentro da pasta do app criar os tres arquivos do ambiente
+    app.module.ts | app.service.ts | app.controller.ts
+7 - Primeiro configure o arquivo app.module.ts
+    modelo base:
+        import { Module } from "@nestjs/common";
+
+        @Module({
+            imports:[],
+            exports:[],
+            controllers:[],
+            providers:[],
+        })
+        export class UserModule {}
+8 - Em seguida configure o arquivo de controller.ts
+    modelo base:
+        import { Controller } from "@nestjs/common";
+
+        @Controller()
+        export class UsersController{}
+
+9 - Um controller pode receber como argumento a rota do seu endpoint
+    ex: @controller('users')
+11 - Criar os endpoints da API: GET, POST, PUT, PATCH e DELETE
+12 - Declarar o controller no module
+13 - Configurar o service.ts
+    modelo base:
+        import { Injectable } from "@nestjs/common";
+
+        @Injectable()
+        export class UsersModule{}
+14 - Criar os DTOs - instale class validator e o class transformer
+    comando: npm install class-validator class-transformer
+    coloque no main.ts essa parte para que possa usar o ValidationPipe
+    app.useGlobalPipes(new ValidationPipe());
+
+15 - Criar a pasta e os arquivos do ambiente do DTO
+    PASTA: DTO
+    arquivo: create-useres.dto.ts
+    base do arquivo:
+        import { IsString } from "class-validator";
+        export class CreateUserDTO{
+            @IsString()
+            name:string
+        }
+17 - Validar o DTOs, ver se estão validando as informações reclamando por não entrar no padrão estabelecidos
+18 - Criar e instalar o ambiente ORM
+    comando: npm install @prisma/client //produção
+    comando: npm install -D prisma    //desenvolvimento
+19 - Criar o bando de dados referente a aplicação
+20 - Editar .env para o padrão de conexão que você vai ultilizar 
+    DATABASE_URL="postgresql://postgres:Totorodoce@localhost:5432/Users" 
+21 - No arquivo schema.prisma você deve verificar o provider e criar seus models
+    modelo:
+        model user_login{
+        id Int @id @default(autoincrement())
+        name String
+        email String
+        cpf String
+        password String
+}
+22 - Dentro da pasta src você criar uma pasta chamada prisma
+23 - Na pasta prisma você deve criar dois arquivos:
+    prisma.module.ts
+    prisma.service.ts
+    modelo do prisma.service.ts:
+        import { Injectable, OnModuleInit } from "@nestjs/common";
+        import { PrismaClient } from "@prisma/client";
+
+        @Injectable()
+        export class PrismaService extends PrismaClient implements OnModuleInit{
+            async onModuleInit() {
+                await this.$connect()
+            }
+        }
+24 - Para encerrar uma conexão com o DB faça assim:
+    async enableShutdownHooks (app: INestApplication){
+            process.on('beforeExit', async()=>{
+                await app.close()
+            })
+        }
+25 - No arquivo de module do prisma você deve incluir o PrismaService no provider e no export:
+    @Module({
+    providers: [PrismaService],
+    exports: [PrismaService]
+    })
+    export class PrismaModule{
+
+    }
+26. Inicie o prisma com um init
+27. para usar o PATCH instale o modulo
+ comenado: npm install @nestjs/mapped-types
+
+
+
